@@ -1,0 +1,84 @@
+{
+  "name": "bee-commerce",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/bee-commerce/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "swc",
+        "outputPath": "dist/apps/bee-commerce",
+        "index": "apps/bee-commerce/src/index.html",
+        "baseHref": "/",
+        "main": "apps/bee-commerce/src/main.js",
+        "polyfills": "apps/bee-commerce/src/polyfills.js",
+        "tsConfig": "apps/bee-commerce/tsconfig.app.json",
+        "assets": [
+          "apps/bee-commerce/src/favicon.ico",
+          "apps/bee-commerce/src/assets"
+        ],
+        "styles": ["apps/bee-commerce/src/styles.less"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/bee-commerce/src/environments/environment.js",
+              "with": "apps/bee-commerce/src/environments/environment.prod.js"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "bee-commerce:build",
+        "hmr": true
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "bee-commerce:build:development"
+        },
+        "production": {
+          "buildTarget": "bee-commerce:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/bee-commerce/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/bee-commerce"],
+      "options": {
+        "jestConfig": "apps/bee-commerce/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
