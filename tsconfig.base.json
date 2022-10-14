@@ -14,7 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@bee-commerce/bee-commerce/components": [
+        "libs/bee-commerce/components/src/index.js"
+      ],
+      "@bee-commerce/bee-commerce/shared-ui": [
+        "libs/bee-commerce/shared-ui/src/index.js"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

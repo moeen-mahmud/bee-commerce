@@ -1,0 +1,24 @@
+{
+  "name": "bee-commerce-shared-ui",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/bee-commerce/shared-ui/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/bee-commerce/shared-ui/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/bee-commerce/shared-ui"],
+      "options": {
+        "jestConfig": "libs/bee-commerce/shared-ui/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}
