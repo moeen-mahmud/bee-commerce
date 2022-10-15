@@ -1,5 +1,5 @@
 import styles from './hero.component.module.less';
-import { SearchUi } from '@bee-commerce/bee-commerce/shared-ui';
+import { HeroCarousel, SearchUi } from '@bee-commerce/bee-commerce/shared-ui';
 export function Hero(props) {
   // handle on Search
   const onSearch = (value) => {
@@ -9,6 +9,7 @@ export function Hero(props) {
   return (
     <div className={styles['container']}>
       <SearchUi onSearch={onSearch} />
+      <HeroCarousel />
     </div>
   );
 }
