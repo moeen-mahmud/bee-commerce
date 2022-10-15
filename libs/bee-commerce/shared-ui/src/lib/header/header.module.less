@@ -1,7 +1,28 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+
+// Logo
+.logo {
+  font-family: 'Abril Fatface', cursive;
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  &:hover {
+    color: rgb(206, 205, 205);
+    text-decoration: none;
+  }
+}
+
+// centered column box
+.centered-column-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
