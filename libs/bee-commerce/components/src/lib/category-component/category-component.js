@@ -17,14 +17,19 @@ export function CategoryComponent(props) {
   const selectedProducts = useSelector(selectProductByCategory);
   const categoryStatus = useSelector((state) => state.categories.status);
   const [selectedCategory, setSelectedCategory] = useState(1);
+  const [isSearching, setIsSearching] = useState(false);
+
+  // fetch all categories
   const fetchCategories = useCallback(() => {
     dispatch(getAllCategories());
   }, [dispatch]);
 
+  // fetch all products
   const fetchProducts = useCallback(() => {
     dispatch(getAllProducts());
   }, [dispatch]);
 
+  // fetch products by category id
   const fetchProductsCategoryById = useCallback(
     (id) => {
       dispatch(categoryActions.showProductByCategory(id));
@@ -32,6 +37,7 @@ export function CategoryComponent(props) {
     [dispatch]
   );
 
+  // getting all categories and products
   useEffect(() => {
     if (categoryStatus === 'idle') {
       fetchCategories();
@@ -39,11 +45,33 @@ export function CategoryComponent(props) {
     }
   }, [categoryStatus, dispatch, fetchCategories, fetchProducts]);
 
+  // getting products by default category id
   useEffect(() => {
-    if (products.length > 0) {
+    if (products?.length > 0) {
       fetchProductsCategoryById(selectedCategory);
     }
   }, [selectedCategory, fetchProductsCategoryById, products]);
+
+  // getting products by category id
+  const handleOnSearch = async (value) => {
+    if (value === '') {
+      setIsSearching(false);
+      fetchProductsCategoryById(selectedCategory);
+    }
+    setIsSearching(true);
+
+    const delay = (ms) =>
+      new Promise((res) => {
+        setTimeout(res, ms);
+
+        clearTimeout(ms);
+      });
+
+    delay(1000).then(() => {
+      dispatch(categoryActions.searchProducts(value));
+      setIsSearching(false);
+    });
+  };
 
   return (
     <div className={styles['container']}>
@@ -57,6 +85,8 @@ export function CategoryComponent(props) {
         <ProductBox
           categoryStatus={categoryStatus}
           products={selectedProducts}
+          onSearch={handleOnSearch}
+          isSearching={isSearching}
         />
       </section>
     </div>

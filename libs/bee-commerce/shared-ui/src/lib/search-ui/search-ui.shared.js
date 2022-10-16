@@ -6,10 +6,10 @@ export function SearchUi({ onSearch }) {
   return (
     <div className={styles['container']}>
       <Search
-        placeholder="input search text"
+        placeholder="Search Products"
         allowClear
         onSearch={onSearch}
-        style={{ width: '70%' }}
+        style={{ width: '100%' }}
       />
     </div>
   );

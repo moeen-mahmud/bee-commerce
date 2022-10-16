@@ -1,6 +1,12 @@
 import { Card, Skeleton, Space } from 'antd';
+import SearchUi from '../search-ui/search-ui.shared';
 import styles from './product-box.shared.module.less';
-export function ProductBox({ categoryStatus, products }) {
+export function ProductBox({
+  categoryStatus,
+  products,
+  onSearch,
+  isSearching,
+}) {
   const { Meta } = Card;
 
   return (
@@ -8,8 +14,9 @@ export function ProductBox({ categoryStatus, products }) {
       <section>
         <h1>Explore Products</h1>
         <h4>Choose categories from above</h4>
+        <SearchUi onSearch={onSearch} />
         <Space wrap size={30}>
-          {categoryStatus === 'idle' ? (
+          {categoryStatus === 'idle' || isSearching ? (
             <>
               {new Array(10).fill(null).map((_, index) => (
                 <Card

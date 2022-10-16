@@ -31,8 +31,6 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
-console.log('initial state', initialState);
-
 const categorySlice = createSlice({
   name: 'category',
   initialState,
@@ -41,6 +39,13 @@ const categorySlice = createSlice({
       const products = state.products.filter(
         (product) => product.category.id === action.payload
       );
+      state.productByCategory = products;
+    },
+    searchProducts(state, action) {
+      const products = state.productByCategory.filter((product) =>
+        product.title.toLowerCase().includes(action.payload.toLowerCase())
+      );
+
       state.productByCategory = products;
     },
   },

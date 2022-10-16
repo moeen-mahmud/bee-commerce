@@ -6,20 +6,6 @@ export function Header(props) {
   const { Header } = Layout;
   const navigate = useNavigate();
 
-  // products menu
-  const navigationMenu = [
-    {
-      key: 'Home',
-      label: 'Home',
-      onclick: () => navigate('/'),
-    },
-    {
-      key: 'products',
-      label: 'Products',
-      onclick: () => navigate('/products'),
-    },
-  ];
-
   const loginMenu = [
     {
       key: 'login',
@@ -31,6 +17,11 @@ export function Header(props) {
       label: 'Register',
       link: '/register',
     },
+    {
+      key: 'cart',
+      label: 'Cart',
+      link: '/cart',
+    },
   ];
 
   return (
@@ -38,27 +29,11 @@ export function Header(props) {
       <Header>
         <Row>
           <Col span={8}>
-            <h1 className={styles['logo']}>Bee Commerce</h1>
+            <h1 onClick={() => navigate('/')} className={styles['logo']}>
+              Bee Commerce
+            </h1>
           </Col>
-          <Col span={8}>
-            <Menu
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              theme="dark"
-              mode="horizontal"
-              defaultSelectedKeys={['1']}
-              items={navigationMenu.map((menu) => {
-                return {
-                  key: menu.key,
-                  label: menu.label,
-                  onClick: menu.onclick,
-                };
-              })}
-            />
-          </Col>
+          <Col span={8}></Col>
           <Col span={8}>
             <Menu
               style={{
@@ -73,6 +48,7 @@ export function Header(props) {
                 return {
                   key: menu.key,
                   label: menu.label,
+                  onClick: () => navigate(menu.link),
                 };
               })}
             />
