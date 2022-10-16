@@ -1,6 +1,7 @@
 import styles from './header.module.less';
 import { Col, Layout, Menu, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 
 export function Header(props) {
   const { Header } = Layout;
@@ -11,16 +12,13 @@ export function Header(props) {
       key: 'login',
       label: 'Login',
       link: '/login',
-    },
-    {
-      key: 'register',
-      label: 'Register',
-      link: '/register',
+      icon: <UserOutlined style={{ fontSize: '1rem' }} />,
     },
     {
       key: 'cart',
       label: 'Cart',
       link: '/cart',
+      icon: <ShoppingCartOutlined style={{ fontSize: '1rem' }} />,
     },
   ];
 
@@ -47,6 +45,7 @@ export function Header(props) {
               items={loginMenu.map((menu) => {
                 return {
                   key: menu.key,
+                  icon: menu.icon,
                   label: menu.label,
                   onClick: () => navigate(menu.link),
                 };
