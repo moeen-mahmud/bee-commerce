@@ -7,21 +7,16 @@ export function Header(props) {
   const navigate = useNavigate();
 
   // products menu
-  const productsMenu = [
+  const navigationMenu = [
     {
       key: 'Home',
       label: 'Home',
-      link: '/',
+      onclick: () => navigate('/'),
     },
     {
       key: 'products',
       label: 'Products',
-      link: '/products',
-    },
-    {
-      key: 'categories',
-      label: 'Categories',
-      link: '/categories',
+      onclick: () => navigate('/products'),
     },
   ];
 
@@ -55,13 +50,14 @@ export function Header(props) {
               theme="dark"
               mode="horizontal"
               defaultSelectedKeys={['1']}
-            >
-              {productsMenu.map((menu) => (
-                <Menu.Item key={menu.key} onClick={() => navigate(menu.link)}>
-                  {menu.label}
-                </Menu.Item>
-              ))}
-            </Menu>
+              items={navigationMenu.map((menu) => {
+                return {
+                  key: menu.key,
+                  label: menu.label,
+                  onClick: menu.onclick,
+                };
+              })}
+            />
           </Col>
           <Col span={8}>
             <Menu
