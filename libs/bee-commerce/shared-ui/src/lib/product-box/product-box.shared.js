@@ -32,14 +32,22 @@ export function ProductBox({ categoryStatus, products }) {
                   <Card
                     key={product.id}
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: 300, height: 450 }}
                     cover={<img alt={product.name} src={product.images?.[0]} />}
                   >
                     <Meta
                       title={product.title}
                       description={product.description}
                     />
-                    <Meta title={`Price $${product.price}`} />
+                    <Meta
+                      style={{
+                        position: 'absolute',
+                        bottom: 0,
+                      }}
+                      title={
+                        <h4 style={{ marginTop: 0 }}>Price ${product.price}</h4>
+                      }
+                    />
                   </Card>
                 ))}
             </>
