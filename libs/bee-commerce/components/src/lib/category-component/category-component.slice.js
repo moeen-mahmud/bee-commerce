@@ -31,6 +31,8 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+console.log('initial state', initialState);
+
 const categorySlice = createSlice({
   name: 'category',
   initialState,
@@ -44,7 +46,7 @@ const categorySlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getAllCategories.pending, (state, action) => {
-      state.status = 'loading';
+      state.status = 'idle';
     });
     builder.addCase(getAllCategories.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -55,7 +57,7 @@ const categorySlice = createSlice({
       state.error = action.error.message;
     });
     builder.addCase(getByCategoryId.pending, (state, action) => {
-      state.status = 'loading';
+      state.status = 'idle';
     });
     builder.addCase(getByCategoryId.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -66,7 +68,7 @@ const categorySlice = createSlice({
       state.error = action.error.message;
     });
     builder.addCase(getAllProducts.pending, (state, action) => {
-      state.status = 'loading';
+      state.status = 'idle';
     });
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       state.status = 'succeeded';
