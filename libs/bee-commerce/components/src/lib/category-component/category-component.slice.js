@@ -5,8 +5,10 @@ const initialState = {
   categories: [],
   selectedCategory: {},
   products: [],
+  searchedProducts: [],
   productByCategory: [],
   status: 'idle',
+  isCategory: true,
   error: null,
 };
 
@@ -42,11 +44,20 @@ const categorySlice = createSlice({
       state.productByCategory = products;
     },
     searchProducts(state, action) {
-      const products = state.productByCategory.filter((product) =>
-        product.title.toLowerCase().includes(action.payload.toLowerCase())
-      );
-
-      state.productByCategory = products;
+      if (state.isCategory) {
+        const products = state.productByCategory.filter((product) =>
+          product.title.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        state.productByCategory = products;
+      } else {
+        const products = state.products.filter((product) =>
+          product.title.toLowerCase().includes(action.payload.toLowerCase())
+        );
+        state.productByCategory = products;
+      }
+    },
+    toggleCategory(state, action) {
+      state.isCategory = action.payload;
     },
   },
   extraReducers(builder) {

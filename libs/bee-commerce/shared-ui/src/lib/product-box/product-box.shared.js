@@ -6,6 +6,8 @@ export function ProductBox({
   products,
   onSearch,
   isSearching,
+  isCategory,
+  toggleCategory,
 }) {
   const { Meta } = Card;
 
@@ -14,7 +16,11 @@ export function ProductBox({
       <section>
         <h1>Explore Products</h1>
         <h4>Choose categories from above</h4>
-        <SearchUi onSearch={onSearch} />
+        <SearchUi
+          onSearch={onSearch}
+          isCategory={isCategory}
+          toggleCategory={toggleCategory}
+        />
         <Space wrap size={30}>
           {categoryStatus === 'idle' || isSearching ? (
             <>
@@ -22,7 +28,7 @@ export function ProductBox({
                 <Card
                   key={index + 1}
                   hoverable
-                  style={{ width: 240 }}
+                  style={{ width: 300, height: 450 }}
                   cover={<Skeleton.Image active />}
                 >
                   <Skeleton.Input size="large" active />
@@ -59,6 +65,9 @@ export function ProductBox({
                 ))}
             </>
           )}
+          {products.length === 0 && !isSearching ? (
+            <h1>No products found</h1>
+          ) : null}
         </Space>
       </section>
     </div>

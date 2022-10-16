@@ -1,16 +1,28 @@
 import styles from './search-ui.shared.module.less';
-import { Input } from 'antd';
-export function SearchUi({ onSearch }) {
+import { Input, Space, Switch } from 'antd';
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons';
+export function SearchUi({ onSearch, isCategory, toggleCategory }) {
   const { Search } = Input;
 
   return (
     <div className={styles['container']}>
       <Search
         placeholder="Search Products"
+        style={{ width: '70%' }}
         allowClear
-        onSearch={onSearch}
-        style={{ width: '100%' }}
+        onChange={(e) => {
+          onSearch(e.target.value);
+        }}
       />
+      <Space>
+        <div>Categories</div>
+        <Switch
+          checkedChildren={<CheckOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          defaultChecked={isCategory}
+          onChange={toggleCategory}
+        />
+      </Space>
     </div>
   );
 }

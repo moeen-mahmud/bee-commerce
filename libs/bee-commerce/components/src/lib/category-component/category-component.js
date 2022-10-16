@@ -16,6 +16,7 @@ export function CategoryComponent(props) {
   const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectProductByCategory);
   const categoryStatus = useSelector((state) => state.categories.status);
+  const isCategory = useSelector((state) => state.categories.isCategory);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -73,6 +74,11 @@ export function CategoryComponent(props) {
     });
   };
 
+  // toggle between categories and products
+  const handleToggleCategory = () => {
+    dispatch(categoryActions.toggleCategory(!isCategory));
+  };
+
   return (
     <div className={styles['container']}>
       <section style={{ width: '70%' }}>
@@ -87,6 +93,8 @@ export function CategoryComponent(props) {
           products={selectedProducts}
           onSearch={handleOnSearch}
           isSearching={isSearching}
+          isCategory={isCategory}
+          toggleCategory={handleToggleCategory}
         />
       </section>
     </div>
