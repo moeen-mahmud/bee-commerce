@@ -9,10 +9,3 @@ export const store = configureStore({
     categories: categoryReducer,
   },
 });
-
-// export default configureStore({
-//   reducer: {
-//     posts: postsReducer,
-//     users: usersReducer,
-//   },
-// });

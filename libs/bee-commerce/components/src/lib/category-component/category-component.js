@@ -4,11 +4,18 @@ import styles from './category-component.module.less';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllCategories,
+  getAllProducts,
+  getByCategoryId,
   selectAllCategories,
+  categoryActions,
+  selectProductByCategory,
+  // selectAllProducts,
 } from './category-component.slice';
 export function CategoryComponent(props) {
   const dispatch = useDispatch();
   const categories = useSelector(selectAllCategories);
+  // const products = useSelector(selectAllProducts);
+  const selectedProducts = useSelector(selectProductByCategory);
   const categoryStatus = useSelector((state) => state.categories.status);
 
   const { Meta } = Card;
@@ -17,11 +24,23 @@ export function CategoryComponent(props) {
     dispatch(getAllCategories());
   }, [dispatch]);
 
+  const fetchProducts = useCallback(() => {
+    dispatch(getAllProducts());
+  }, [dispatch]);
+
+  const fetchProductsCategoryById = useCallback(
+    (id) => {
+      dispatch(categoryActions.showProductByCategory(id));
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     if (categoryStatus === 'idle') {
       fetchCategories();
+      fetchProducts();
     }
-  }, [categoryStatus, dispatch, fetchCategories]);
+  }, [categoryStatus, dispatch, fetchCategories, fetchProducts]);
 
   return (
     <div className={styles['container']}>
@@ -46,6 +65,7 @@ export function CategoryComponent(props) {
             <>
               {categories.map((category) => (
                 <Card
+                  onClick={() => fetchProductsCategoryById(category.id)}
                   key={category.id}
                   hoverable
                   style={{ width: 240 }}
@@ -57,6 +77,9 @@ export function CategoryComponent(props) {
             </>
           )}
         </Space>
+        <section style={{ marginTop: '2rem', width: '70%' }}>
+          <h1>Explore Products</h1>
+        </section>
       </section>
     </div>
   );
