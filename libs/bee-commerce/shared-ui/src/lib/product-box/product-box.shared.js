@@ -1,4 +1,10 @@
-import { Card, Skeleton, Space } from 'antd';
+import {
+  CheckCircleFilled,
+  DeleteFilled,
+  PlusOutlined,
+  ShoppingFilled,
+} from '@ant-design/icons';
+import { Button, Card, Skeleton, Space } from 'antd';
 import SearchUi from '../search-ui/search-ui.shared';
 import styles from './product-box.shared.module.less';
 export function ProductBox({
@@ -8,6 +14,9 @@ export function ProductBox({
   isSearching,
   isCategory,
   toggleCategory,
+  addToCart,
+  removeFromCart,
+  cart = [],
 }) {
   const { Meta } = Card;
 
@@ -52,15 +61,35 @@ export function ProductBox({
                       title={product.title}
                       description={product.description}
                     />
-                    <Meta
+                    <div
                       style={{
                         position: 'absolute',
-                        bottom: 0,
+                        bottom: 10,
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '250px',
                       }}
-                      title={
-                        <h4 style={{ marginTop: 0 }}>Price ${product.price}</h4>
-                      }
-                    />
+                    >
+                      <Meta title={`Price ${product.price}`} />
+                      {cart.map((item) => item.id).includes(product.id) ? (
+                        <Button
+                          onClick={() => removeFromCart(product.id)}
+                          type="default"
+                          icon={<DeleteFilled style={{ color: 'red' }} />}
+                        >
+                          Remove from cart
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={() => addToCart(product.id)}
+                          type="default"
+                          icon={<ShoppingFilled />}
+                        >
+                          Add To Cart
+                        </Button>
+                      )}
+                    </div>
                   </Card>
                 ))}
             </>

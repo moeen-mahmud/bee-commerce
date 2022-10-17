@@ -10,6 +10,7 @@ const initialState = {
   status: 'idle',
   isCategory: true,
   error: null,
+  cart: [],
 };
 
 export const getAllCategories = createAsyncThunk(
@@ -58,6 +59,18 @@ const categorySlice = createSlice({
     },
     toggleCategory(state, action) {
       state.isCategory = action.payload;
+    },
+    addToCart(state, action) {
+      const product = state.productByCategory.find(
+        (product) => product.id === action.payload
+      );
+      state.cart.push(product);
+    },
+    removeFromCart(state, action) {
+      const index = state.cart.findIndex(
+        (product) => product.id === action.payload
+      );
+      state.cart.splice(index, 1);
     },
   },
   extraReducers(builder) {

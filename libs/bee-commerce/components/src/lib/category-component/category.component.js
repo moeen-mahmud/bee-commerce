@@ -16,6 +16,7 @@ export function CategoryComponent(props) {
   const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectProductByCategory);
   const categoryStatus = useSelector((state) => state.categories.status);
+  const cart = useSelector((state) => state.categories.cart);
   const isCategory = useSelector((state) => state.categories.isCategory);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
@@ -79,6 +80,16 @@ export function CategoryComponent(props) {
     dispatch(categoryActions.toggleCategory(!isCategory));
   };
 
+  // add to cart
+  const handleAddToCart = (product) => {
+    dispatch(categoryActions.addToCart(product));
+  };
+
+  // remove from cart
+  const handleRemoveFromCart = (product) => {
+    dispatch(categoryActions.removeFromCart(product));
+  };
+
   return (
     <div className={styles['container']}>
       <section style={{ width: '70%' }}>
@@ -95,6 +106,9 @@ export function CategoryComponent(props) {
           isSearching={isSearching}
           isCategory={isCategory}
           toggleCategory={handleToggleCategory}
+          addToCart={handleAddToCart}
+          removeFromCart={handleRemoveFromCart}
+          cart={cart}
         />
       </section>
     </div>

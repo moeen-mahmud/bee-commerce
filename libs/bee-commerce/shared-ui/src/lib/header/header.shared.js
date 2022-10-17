@@ -3,7 +3,7 @@ import { Col, Layout, Menu, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 
-export function Header({ token, logOut }) {
+export function Header({ token, logOut, cart = [] }) {
   const { Header } = Layout;
   const navigate = useNavigate();
 
