@@ -8,12 +8,13 @@ import {
   storeActions,
   userLoginActions,
 } from '@bee-commerce/bee-commerce/components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 export function App() {
   const dispatch = useDispatch();
 
+  const storedAccessToken = useSelector((state) => state.auth.access_token);
   const access_token = localStorage.getItem('access_token');
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export function App() {
   return (
     <Layout>
       <Header
-        token={access_token}
+        token={storedAccessToken}
         logOut={() => dispatch(userLoginActions.logoutUser())}
         cartToggler={() => dispatch(storeActions.toggleCart(true))}
       />

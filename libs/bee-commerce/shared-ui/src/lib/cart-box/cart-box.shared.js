@@ -9,6 +9,7 @@ import {
   Typography,
 } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styles from './cart-box.shared.module.less';
 export function CartBox({
   onClose,
@@ -18,6 +19,7 @@ export function CartBox({
   grandTotal,
   placeOrder,
   placeOrderStatus,
+  token,
 }) {
   return (
     <div className={styles['container']}>
@@ -111,15 +113,30 @@ export function CartBox({
                   ))}
                 </Space>
                 <div style={{ marginTop: '1rem', width: '100%' }}>
-                  <Button
-                    loading={placeOrderStatus === 'idle'}
-                    disabled={placeOrderStatus === 'idle'}
-                    onClick={placeOrder}
-                    block
-                    type="primary"
-                  >
-                    Place Order
-                  </Button>
+                  {token ? (
+                    <Button
+                      loading={placeOrderStatus === 'idle'}
+                      disabled={placeOrderStatus === 'idle'}
+                      onClick={placeOrder}
+                      block
+                      type="primary"
+                    >
+                      Place Order
+                    </Button>
+                  ) : (
+                    <Alert
+                      message="You need to login to place order"
+                      description={
+                        <Link to={'/login'}>
+                          <Typography.Link>
+                            Take me to the login
+                          </Typography.Link>
+                        </Link>
+                      }
+                      type="warning"
+                      showIcon
+                    />
+                  )}
                 </div>
               </React.Fragment>
             ) : (

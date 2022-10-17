@@ -24,6 +24,7 @@ export function StoreComponent(props) {
   const cart = useSelector((state) => state.store.cart);
   const isCategory = useSelector((state) => state.store.isCategory);
   const cartCalculations = useSelector((state) => state.store.cartCalculations);
+  const access_token = useSelector((state) => state.auth.access_token);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
   const [placeOrderStatus, setPlaceOrderStatus] = useState(null);
@@ -188,6 +189,7 @@ export function StoreComponent(props) {
           cart={cart}
         />
         <CartBox
+          token={access_token}
           onClose={() => dispatch(storeActions.toggleCart(false))}
           open={showCart}
           cart={cart}
