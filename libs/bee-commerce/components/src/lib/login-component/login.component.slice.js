@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { client } from '@bee-commerce/api';
 
+// Define a type for the slice state
 const initialState = {
   access_token: '',
   profile: {},
@@ -8,6 +9,7 @@ const initialState = {
   error: null,
 };
 
+// Define the thunks
 export const loginUser = createAsyncThunk('user/register', async (user) => {
   const response = await client.post(`/auth/login`, user);
   return response;
@@ -25,6 +27,7 @@ export const getUserProfile = createAsyncThunk(
   }
 );
 
+// Define the slice
 const userRegistrationSlice = createSlice({
   name: 'userRegistration',
   initialState,
@@ -65,6 +68,7 @@ const userRegistrationSlice = createSlice({
   },
 });
 
+// Export the actions
 const userLoginReducer = userRegistrationSlice.reducer;
 export const userLoginActions = userRegistrationSlice.actions;
 export default userLoginReducer;

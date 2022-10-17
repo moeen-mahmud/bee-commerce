@@ -12,11 +12,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 export function App() {
+  // redux
   const dispatch = useDispatch();
-
   const storedAccessToken = useSelector((state) => state.auth.access_token);
   const access_token = localStorage.getItem('access_token');
 
+  // get and set token
   useEffect(() => {
     if (access_token) {
       dispatch(userLoginActions.setAccessToken(access_token));

@@ -15,16 +15,25 @@ import {
   ProductBox,
 } from '@bee-commerce/bee-commerce/shared-ui';
 export function StoreComponent(props) {
+  // redux
   const dispatch = useDispatch();
+  // categories selector
   const categories = useSelector(selectAllCategories);
+  // products selector
   const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectProductByCategory);
+
+  // common store selectors
   const categoryStatus = useSelector((state) => state.store.status);
   const showCart = useSelector((state) => state.store.showCart);
   const cart = useSelector((state) => state.store.cart);
   const isCategory = useSelector((state) => state.store.isCategory);
   const cartCalculations = useSelector((state) => state.store.cartCalculations);
+
+  // auth selector
   const access_token = useSelector((state) => state.auth.access_token);
+
+  // local state
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
   const [placeOrderStatus, setPlaceOrderStatus] = useState(null);
@@ -62,6 +71,7 @@ export function StoreComponent(props) {
     }
   }, [selectedCategory, fetchProductsCategoryById, products]);
 
+  // calculate cart
   useEffect(() => {
     if (cart.length > 0) {
       handleCalculateCart(cart);
@@ -125,6 +135,7 @@ export function StoreComponent(props) {
     });
   };
 
+  // cart watcher
   useEffect(() => {
     const delay = (ms) =>
       new Promise((res) => {

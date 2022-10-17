@@ -5,18 +5,25 @@ import { useNavigate } from 'react-router-dom';
 import styles from './login.component.module.less';
 import { loginUser } from './login.component.slice';
 export function LoginComponent({ setIsLogin }) {
+  // hooks
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // redux
+  const dispatch = useDispatch();
   const loginStatus = useSelector((state) => state.auth.loginStatus);
+
+  // local state
   const [loading, setLoading] = useState(false);
 
+  // watch login status
   useEffect(() => {
     if (loginStatus === 'succeeded') {
       setLoading(false);
     }
   }, [loginStatus, navigate]);
 
+  // login user
   const handleUserLogin = (e) => {
     form
       .validateFields()

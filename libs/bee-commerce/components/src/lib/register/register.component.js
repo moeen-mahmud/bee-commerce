@@ -4,11 +4,17 @@ import { registerUser } from './register.component.slice';
 import styles from './register.component.module.less';
 import { useDispatch, useSelector } from 'react-redux';
 export function RegisterComponent({ setIsLogin }) {
+  // hooks
   const [form] = Form.useForm();
+
+  // redux
   const dispatch = useDispatch();
   const registeredUserStatus = useSelector((state) => state.user.status);
+
+  // local state
   const [loading, setLoading] = useState(false);
 
+  // register user
   const handleUserRegistration = async (e) => {
     try {
       setLoading(true);
@@ -22,6 +28,7 @@ export function RegisterComponent({ setIsLogin }) {
     }
   };
 
+  // watch registration status
   useEffect(() => {
     if (
       registeredUserStatus === 'succeeded' ||
