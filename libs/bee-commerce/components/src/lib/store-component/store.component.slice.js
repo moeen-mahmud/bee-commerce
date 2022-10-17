@@ -34,7 +34,7 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
-const categorySlice = createSlice({
+const storeSlice = createSlice({
   name: 'category',
   initialState,
   reducers: {
@@ -109,12 +109,11 @@ const categorySlice = createSlice({
     });
   },
 });
-const categoryReducer = categorySlice.reducer;
-export const categoryActions = categorySlice.actions;
+const storeReducer = storeSlice.reducer;
+export const storeActions = storeSlice.actions;
 
-export const selectAllCategories = (state) => state.categories.categories;
-export const selectCategoryById = (state) => state.categories.selectedCategory;
-export const selectAllProducts = (state) => state.categories.products;
-export const selectProductByCategory = (state) =>
-  state.categories.productByCategory;
-export default categoryReducer;
+export const selectAllCategories = (state) => state.store.categories;
+export const selectCategoryById = (state) => state.store.selectedCategory;
+export const selectAllProducts = (state) => state.store.products;
+export const selectProductByCategory = (state) => state.store.productByCategory;
+export default storeReducer;

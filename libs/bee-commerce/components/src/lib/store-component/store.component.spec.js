@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
-import CategoryComponent from './category.component';
+import StoreComponent from './store.component';
 describe('CategoryComponent', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<CategoryComponent />);
+    const { baseElement } = render(<StoreComponent />);
     expect(baseElement).toBeTruthy();
   });
 });

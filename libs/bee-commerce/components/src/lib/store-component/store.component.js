@@ -1,23 +1,23 @@
 import { useCallback, useEffect, useState } from 'react';
-import styles from './category.component.module.less';
+import styles from './store.component.module.less';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllCategories,
   getAllProducts,
   selectAllCategories,
-  categoryActions,
+  storeActions,
   selectProductByCategory,
   selectAllProducts,
-} from './category.component.slice';
+} from './store.component.slice';
 import { CategoryBox, ProductBox } from '@bee-commerce/bee-commerce/shared-ui';
-export function CategoryComponent(props) {
+export function StoreComponent(props) {
   const dispatch = useDispatch();
   const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectProductByCategory);
-  const categoryStatus = useSelector((state) => state.categories.status);
-  const cart = useSelector((state) => state.categories.cart);
-  const isCategory = useSelector((state) => state.categories.isCategory);
+  const categoryStatus = useSelector((state) => state.store.status);
+  const cart = useSelector((state) => state.store.cart);
+  const isCategory = useSelector((state) => state.store.isCategory);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -34,7 +34,7 @@ export function CategoryComponent(props) {
   // fetch products by category id
   const fetchProductsCategoryById = useCallback(
     (id) => {
-      dispatch(categoryActions.showProductByCategory(id));
+      dispatch(storeActions.showProductByCategory(id));
     },
     [dispatch]
   );
@@ -70,24 +70,24 @@ export function CategoryComponent(props) {
       });
 
     delay(1000).then(() => {
-      dispatch(categoryActions.searchProducts(value));
+      dispatch(storeActions.searchProducts(value));
       setIsSearching(false);
     });
   };
 
   // toggle between categories and products
   const handleToggleCategory = () => {
-    dispatch(categoryActions.toggleCategory(!isCategory));
+    dispatch(storeActions.toggleCategory(!isCategory));
   };
 
   // add to cart
   const handleAddToCart = (product) => {
-    dispatch(categoryActions.addToCart(product));
+    dispatch(storeActions.addToCart(product));
   };
 
   // remove from cart
   const handleRemoveFromCart = (product) => {
-    dispatch(categoryActions.removeFromCart(product));
+    dispatch(storeActions.removeFromCart(product));
   };
 
   return (
@@ -114,4 +114,4 @@ export function CategoryComponent(props) {
     </div>
   );
 }
-export default CategoryComponent;
+export default StoreComponent;
