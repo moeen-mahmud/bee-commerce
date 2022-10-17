@@ -1,7 +1,8 @@
 import { Layout } from 'antd';
 import { Route, Routes } from 'react-router-dom';
-import Home from '../pages/home/home.page';
 import { Header } from '@bee-commerce/bee-commerce/shared-ui';
+import Home from '../pages/home/home.page';
+import LoginPage from '../pages/login-page/login.page';
 
 export function App() {
   return (
@@ -9,6 +10,7 @@ export function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
       {/* END: routes */}
     </Layout>
