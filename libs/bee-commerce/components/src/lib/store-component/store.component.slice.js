@@ -11,6 +11,14 @@ const initialState = {
   isCategory: true,
   error: null,
   cart: [],
+  cartCalculations: {
+    total: 0,
+    shippingCost: 0,
+    beforeTax: 0,
+    tax: 0,
+    grandTotal: 0,
+  },
+  showCart: false,
 };
 
 export const getAllCategories = createAsyncThunk(
@@ -71,6 +79,35 @@ const storeSlice = createSlice({
         (product) => product.id === action.payload
       );
       state.cart.splice(index, 1);
+    },
+    toggleCart(state, action) {
+      state.showCart = action.payload;
+    },
+    calculateCart(state, action) {
+      const total = state.cart.reduce((acc, product) => {
+        return acc + product.price;
+      }, 0);
+      const shippingCost = 10;
+      const beforeTax = total + shippingCost;
+      const tax = beforeTax * 0.1;
+      const grandTotal = beforeTax + tax;
+      state.cartCalculations = {
+        total,
+        shippingCost,
+        beforeTax,
+        tax,
+        grandTotal,
+      };
+    },
+    placeOrder(state, action) {
+      state.cart = [];
+      state.cartCalculations = {
+        total: 0,
+        shippingCost: 0,
+        beforeTax: 0,
+        tax: 0,
+        grandTotal: 0,
+      };
     },
   },
   extraReducers(builder) {

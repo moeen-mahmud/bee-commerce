@@ -5,6 +5,7 @@ import Home from '../pages/home/home.page';
 import LoginPage from '../pages/login-page/login.page';
 import {
   getUserProfile,
+  storeActions,
   userLoginActions,
 } from '@bee-commerce/bee-commerce/components';
 import { useDispatch } from 'react-redux';
@@ -27,6 +28,7 @@ export function App() {
       <Header
         token={access_token}
         logOut={() => dispatch(userLoginActions.logoutUser())}
+        cartToggler={() => dispatch(storeActions.toggleCart(true))}
       />
       <Routes>
         <Route path="/" element={<Home />} />

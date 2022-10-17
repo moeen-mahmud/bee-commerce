@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react';
-import CartComponent from './cart.component';
-describe('CartComponent', () => {
+import CartBox from './cart-box.shared';
+describe('CartBox', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<CartComponent />);
+    const { baseElement } = render(<CartBox />);
     expect(baseElement).toBeTruthy();
   });
 });

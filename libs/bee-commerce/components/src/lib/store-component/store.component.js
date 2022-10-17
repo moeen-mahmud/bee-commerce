@@ -9,17 +9,24 @@ import {
   selectProductByCategory,
   selectAllProducts,
 } from './store.component.slice';
-import { CategoryBox, ProductBox } from '@bee-commerce/bee-commerce/shared-ui';
+import {
+  CartBox,
+  CategoryBox,
+  ProductBox,
+} from '@bee-commerce/bee-commerce/shared-ui';
 export function StoreComponent(props) {
   const dispatch = useDispatch();
   const categories = useSelector(selectAllCategories);
   const products = useSelector(selectAllProducts);
   const selectedProducts = useSelector(selectProductByCategory);
   const categoryStatus = useSelector((state) => state.store.status);
+  const showCart = useSelector((state) => state.store.showCart);
   const cart = useSelector((state) => state.store.cart);
   const isCategory = useSelector((state) => state.store.isCategory);
+  const cartCalculations = useSelector((state) => state.store.cartCalculations);
   const [selectedCategory, setSelectedCategory] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
+  const [placeOrderStatus, setPlaceOrderStatus] = useState(null);
 
   // fetch all categories
   const fetchCategories = useCallback(() => {
@@ -53,6 +60,12 @@ export function StoreComponent(props) {
       fetchProductsCategoryById(selectedCategory);
     }
   }, [selectedCategory, fetchProductsCategoryById, products]);
+
+  useEffect(() => {
+    if (cart.length > 0) {
+      handleCalculateCart(cart);
+    }
+  }, [cart]);
 
   // getting products by category id
   const handleOnSearch = async (value) => {
@@ -90,6 +103,70 @@ export function StoreComponent(props) {
     dispatch(storeActions.removeFromCart(product));
   };
 
+  // calculate cart
+  const handleCalculateCart = (productInCart) => {
+    dispatch(storeActions.calculateCart(productInCart));
+  };
+
+  // place order
+  const handlePlaceOrder = () => {
+    setPlaceOrderStatus('idle');
+    const delay = (ms) =>
+      new Promise((res) => {
+        setTimeout(res, ms);
+
+        clearTimeout(ms);
+      });
+
+    delay(3000).then(() => {
+      setPlaceOrderStatus('success');
+      dispatch(storeActions.placeOrder());
+    });
+  };
+
+  useEffect(() => {
+    const delay = (ms) =>
+      new Promise((res) => {
+        setTimeout(res, ms);
+
+        clearTimeout(ms);
+      });
+    if (placeOrderStatus === 'success') {
+      delay(5000).then(() => {
+        setPlaceOrderStatus(null);
+        dispatch(storeActions.toggleCart(false));
+      });
+    }
+  }, [placeOrderStatus, dispatch]);
+
+  // cart table column
+  const cartBoxColumn = [
+    {
+      title: 'Total',
+      dataIndex: 'total',
+      key: 'total',
+      calculations: cartCalculations.total,
+    },
+    {
+      title: 'Shipping Cost',
+      dataIndex: 'shippingCost',
+      key: 'shippingCost',
+      calculations: cartCalculations.shippingCost,
+    },
+    {
+      title: 'Before Tax',
+      dataIndex: 'beforeTax',
+      key: 'beforeTax',
+      calculations: cartCalculations.beforeTax,
+    },
+    {
+      title: 'Tax',
+      dataIndex: 'tax',
+      key: 'tax',
+      calculations: cartCalculations.tax,
+    },
+  ];
+
   return (
     <div className={styles['container']}>
       <section style={{ width: '70%' }}>
@@ -109,6 +186,15 @@ export function StoreComponent(props) {
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
           cart={cart}
+        />
+        <CartBox
+          onClose={() => dispatch(storeActions.toggleCart(false))}
+          open={showCart}
+          cart={cart}
+          columns={cartBoxColumn}
+          grandTotal={cartCalculations.grandTotal}
+          placeOrder={handlePlaceOrder}
+          placeOrderStatus={placeOrderStatus}
         />
       </section>
     </div>

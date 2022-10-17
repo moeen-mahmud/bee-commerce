@@ -1,10 +1,5 @@
-import {
-  CheckCircleFilled,
-  DeleteFilled,
-  PlusOutlined,
-  ShoppingFilled,
-} from '@ant-design/icons';
-import { Button, Card, Skeleton, Space } from 'antd';
+import { DeleteFilled, ShoppingFilled } from '@ant-design/icons';
+import { Button, Card, Image, Skeleton, Space } from 'antd';
 import SearchUi from '../search-ui/search-ui.shared';
 import styles from './product-box.shared.module.less';
 export function ProductBox({
@@ -55,7 +50,9 @@ export function ProductBox({
                     key={product.id}
                     hoverable
                     style={{ width: 300, height: 450 }}
-                    cover={<img alt={product.name} src={product.images?.[0]} />}
+                    cover={
+                      <Image alt={product.name} src={product.images?.[0]} />
+                    }
                   >
                     <Meta
                       title={product.title}

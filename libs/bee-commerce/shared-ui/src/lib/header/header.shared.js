@@ -3,7 +3,7 @@ import { Col, Layout, Menu, Row } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 
-export function Header({ token, logOut, cart = [] }) {
+export function Header({ token, logOut, cart = [], cartToggler }) {
   const { Header } = Layout;
   const navigate = useNavigate();
 
@@ -18,13 +18,22 @@ export function Header({ token, logOut, cart = [] }) {
       key: 'cart',
       label: 'Cart',
       icon: <ShoppingCartOutlined style={{ fontSize: '1rem' }} />,
-      onclick: () => navigate('/cart'),
+      onclick: () => cartToggler(),
     },
   ];
 
   return (
     <div>
-      <Header>
+      <Header
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          right: 0,
+          zIndex: 1000,
+          width: '100%',
+        }}
+      >
         <Row>
           <Col span={8}>
             <h1 onClick={() => navigate('/')} className={styles['logo']}>

@@ -1,4 +1,3 @@
-export * from './lib/cart-component/cart.component';
 export * from './lib/login-component/login.component.slice';
 export * from './lib/register/register.component.slice';
 export * from './lib/register/register.component';
