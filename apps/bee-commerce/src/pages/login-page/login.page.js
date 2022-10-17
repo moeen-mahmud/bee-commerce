@@ -1,27 +1,52 @@
-import { LoginComponent } from '@bee-commerce/bee-commerce/components';
+import {
+  LoginComponent,
+  RegisterComponent,
+} from '@bee-commerce/bee-commerce/components';
 import { Form } from 'antd';
 import { useState } from 'react';
 import styles from './login.page.module.less';
 export function LoginPage(props) {
   const [form] = Form.useForm();
-  const [userInputValues, setUserInputValues] = useState({});
+  const [isLogin, setIsLogin] = useState(true);
+  const [userLoginValues, setUserLoginValues] = useState({});
+  const [userRegisterValues, setUserRegisterValues] = useState({});
 
-  const handleOnSubmit = (e) => {
+  const handleUserLogin = (e) => {
     form
       .validateFields()
       .then((values) => {
-        setUserInputValues(values);
+        setUserLoginValues(values);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleUserRegistration = (e) => {
+    form
+      .validateFields()
+      .then((values) => {
+        setUserRegisterValues(values);
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  console.log(userInputValues);
-
   return (
     <div className={styles['container']}>
-      <LoginComponent form={form} onSubmit={handleOnSubmit} />
+      {isLogin ? (
+        <LoginComponent
+          setIsLogin={setIsLogin}
+          form={form}
+          onSubmit={handleUserLogin}
+        />
+      ) : (
+        <RegisterComponent
+          setIsLogin={setIsLogin}
+          form={form}
+          onSubmit={handleUserRegistration}
+        />
+      )}
     </div>
   );
 }

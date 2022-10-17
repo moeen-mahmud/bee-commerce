@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import styles from './category-component.module.less';
+import styles from './category.component.module.less';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getAllCategories,
@@ -8,7 +8,7 @@ import {
   categoryActions,
   selectProductByCategory,
   selectAllProducts,
-} from './category-component.slice';
+} from './category.component.slice';
 import { CategoryBox, ProductBox } from '@bee-commerce/bee-commerce/shared-ui';
 export function CategoryComponent(props) {
   const dispatch = useDispatch();
