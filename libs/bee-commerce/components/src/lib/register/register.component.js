@@ -12,10 +12,10 @@ export function RegisterComponent({ setIsLogin }) {
   const handleUserRegistration = async (e) => {
     try {
       setLoading(true);
-      const validateFields = await form.validateFields();
+      const values = await form.validateFields();
 
-      if (validateFields) {
-        dispatch(registerUser(validateFields));
+      if (values) {
+        dispatch(registerUser(values));
       }
     } catch (error) {
       console.log(error);
@@ -23,7 +23,10 @@ export function RegisterComponent({ setIsLogin }) {
   };
 
   useEffect(() => {
-    if (registeredUserStatus === 'succeeded') {
+    if (
+      registeredUserStatus === 'succeeded' ||
+      registeredUserStatus === 'error'
+    ) {
       setLoading(false);
     }
   }, [registeredUserStatus]);

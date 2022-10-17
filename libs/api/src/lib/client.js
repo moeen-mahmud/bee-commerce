@@ -1,23 +1,19 @@
 import { api } from './config';
 
 export const client = {
-  get: async (url, ...options) => {
+  get: async (url, options) => {
     try {
-      const response = await api.get(url, ...options);
-      if (response.status === 200) {
-        return response.data;
-      }
+      const response = await api.get(url, options);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
   },
 
-  post: async (url, data, ...options) => {
+  post: async (url, data, options) => {
     try {
-      const response = await api.post(url, data, ...options);
-      if (response.status === 200) {
-        return response.data;
-      }
+      const response = await api.post(url, data, options);
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -26,10 +22,7 @@ export const client = {
   put: async (url, data, ...options) => {
     try {
       const response = await api.put(url, data, ...options);
-      if (response.status === 200) {
-        console.log('Consoling From Client', response.data);
-        return response.data;
-      }
+      return response.data;
     } catch (error) {
       console.log(error);
     }
@@ -38,9 +31,7 @@ export const client = {
   delete: async (url, ...options) => {
     try {
       const response = await api.delete(url, ...options);
-      if (response.status === 200) {
-        return response.data;
-      }
+      return response.data;
     } catch (error) {
       console.log(error);
     }
